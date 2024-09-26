@@ -16,7 +16,7 @@ my_family_height = [
 ]
 
 # Выведите на консоль рост отца в формате
-#   Рост отца - ХХ см
+
 height_father = my_family_height[2][1]
 print('Рост отца -', height_father, 'см')
 
