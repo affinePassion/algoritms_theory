@@ -11,8 +11,6 @@ meadow = ('клевер', 'одуванчик', 'ромашка', 'клевер'
 garden_set = set(garden)
 meadow_set = set(meadow)
 
-
-
 # выведите на консоль все виды цветов
 print(garden_set | meadow_set)
 
