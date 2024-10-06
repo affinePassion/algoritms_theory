@@ -16,18 +16,22 @@ def main():
         print("4. Рассчитать стоимость рецепта для пациента")
         print("5. Рассчитать кол-во лекарств в рецепте")
         print("6. Отобразить все лекарства")
-        print("7. Выход")
+        print("7. Рассчитать запас лекарств")
+        print("8. Выход")
 
         choice = input("Выберите действие: ")
 
         if choice == "1":
-            newPrep = input("Введите название, цену(вещественным числом) и количество лекарства через пробел: ").split()
-            if((type(newPrep[1]) != float) or type(newPrep[2]) != int):
+            try:
+                newPrep = input("Введите название, цену(вещественным числом) и количество лекарства через пробел: ").split()
+                float(newPrep[1])
+                int(newPrep[2])
+            except ValueError:
                 print("Ошибка в создании лекарства")
                 continue
-            if(newPrep[1] <= 0 or newPrep[2] <= 0):
-                print("Ошибка в создании лекарства")
-                continue
+            if(float(newPrep[1]) <= 0 or int(newPrep[2]) <= 0):
+                    print("Ошибка в создании лекарства")
+                    continue
             preparation = Preparation(newPrep[0], float(newPrep[1]), int(newPrep[2]))
             preparations.append(preparation)
             result = f"Лекарство {newPrep[0]} создано."
@@ -39,7 +43,8 @@ def main():
             if(len(pacient.split()) != 3):
                 print("Ошибка в создании пациента. Возможно, вы ввели неполное ФИО")
                 continue
-            pacients.append(pacient)
+
+            pacients.append(Pacient(pacient))
             result = f"{pacient} создан."
             print(result)
 
@@ -87,10 +92,20 @@ def main():
             if pacient_choice < 0 or pacient_choice >= len(pacients):
                 print("Ошибка при выборе пациента.")
                 continue
+            
+            rec_cost = 0
 
             for i, rec in enumerate(recipes):
                 if rec.pacient == pacients[pacient_choice]:
+                    rec_cost = rec.calculate_cost()
                     print(rec.calculate_cost())
+
+            
+            
+            save_choice = input("Сохранить результат в word?(Yes/No): ")
+            if save_choice=="Yes":
+                save_docs(f"Стоимость рецепта для пациента: {pacients[pacient_choice].name} составляет {rec_cost} руб",
+                           f"Стоимость рецепта для {pacients[pacient_choice].name}")
                 
 
         elif choice == "5":
@@ -110,7 +125,7 @@ def main():
 
             for i, rec in enumerate(recipes):
                 if recipe_choice == i:
-                    print(f"Стоимость рецепта составляет {rec.calculate_stock()[1]} руб")
+                    print(f"Количество лекарств в рецепте {rec.calculate_stock()[1]}")
 
         elif choice == "6":
             if not preparations:
@@ -119,6 +134,13 @@ def main():
                 print(p)
 
         elif choice == "7":
+            print(f"Общее кол-во лекарств = {Preparation.get_total_quantity()}")
+            save_choice = input("Сохранить результат в word?(Yes/No): ")
+            if save_choice=="Yes":
+                save_docs(f"Общее кол-во лекарств = {Preparation.get_total_quantity()}",
+                           "Расчет запаса лекарств")
+
+        elif choice == "8":
             print("Выход.")
             break
         

@@ -15,11 +15,9 @@ class Pacient(Pharmacy):
             raise ValueError("ФИО пациента должно задаваться строкой")
         self._name = value
 
-    @classmethod
     def calculate_cost(self):
         pass
-    
-    @classmethod
+
     def calculate_stock(self):
         pass
 
