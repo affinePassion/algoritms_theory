@@ -53,7 +53,7 @@ class Preparation(Pharmacy):
         return total_cost
     
     def calculate_stock(self):
-        return super().calculate_stock()
+        raise NotImplementedError("Method calculate_stock is not implemented")
 
     @classmethod
     def get_total_quantity(cls):
