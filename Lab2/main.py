@@ -56,8 +56,11 @@ def main():
             print("Доступные пациенты: ")
             for i, pac in enumerate(pacients):
                 print(f"{i+1}. {pac.name}")
-
-            pacient_choice = int(input("Выберите пациента: ")) - 1
+            try:
+                pacient_choice = int(input("Выберите пациента: ")) - 1
+            except ValueError:
+                print("Ошибка в создании пациента")
+                continue
 
             if pacient_choice < 0 or pacient_choice >= len(pacients):
                 print("Ошибка при выборе пациента.")
@@ -130,8 +133,13 @@ def main():
         elif choice == "6":
             if not preparations:
                 print("Список лекарств пуст.")
+            print_str = ""
             for p in preparations:
+                print_str += str(p) + "\n"
                 print(p)
+            save_choice = input("Сохранить результат в word?(Yes/No): ")
+            if save_choice=="Yes":
+                save_docs(print_str, "Лекарства")
 
         elif choice == "7":
             print(f"Общее кол-во лекарств = {Preparation.get_total_quantity()}")
