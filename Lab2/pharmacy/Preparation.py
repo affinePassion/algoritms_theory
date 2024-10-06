@@ -61,8 +61,7 @@ class Preparation(Pharmacy):
         return cls.total_quantity
 
     def __str__(self):
-        return f"Лекарство↓\nНазвание: {self.name}\nКол-во: {self.quantity}шт\nСтоимость(1 шт): {self.price} 
-        руб\nИтоговая стоимость: {self.calculate_cost()} руб\n"
+        return f"Лекарство↓\nНазвание: {self.name}\nКол-во: {self.quantity}шт\nСтоимость(1 шт): {self.price} руб\nИтоговая стоимость: {self.calculate_cost()} руб\n"
     
     
     
