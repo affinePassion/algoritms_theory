@@ -3,8 +3,6 @@ from .Pharmacy import Pharmacy
 # Класс пациент
 class Pacient(Pharmacy):
     def __init__(self, name : str):
-        if not isinstance(name, str):
-            raise ValueError("ФИО пациента должно задаваться строкой")
         self._name = name
 
     @property
@@ -13,6 +11,8 @@ class Pacient(Pharmacy):
     
     @name.setter
     def name(self, value):
+        if not isinstance(value, str):
+            raise ValueError("ФИО пациента должно задаваться строкой")
         self._name = value
 
     def calculate_cost(self):
