@@ -1,0 +1,3 @@
+
+class PlantException(Exception):
+    pass
