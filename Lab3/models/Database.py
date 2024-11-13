@@ -28,8 +28,8 @@ class Database:
 
     def add_plant(self, plant):
         try:
-            self.cursor.execute("INSERT INTO plants (name, species, watering_date) VALUES (%s, %s, %s)",
-                                (plant.name, plant.species, plant.watering_date))
+            self.cursor.execute("INSERT INTO plants (name, species, last_watering_date, amount_waterings) VALUES (%s, %s, %s, %s)",
+                                (plant.name, plant.species, plant.watering_date, plant.amount_waterings))
             self.conn.commit()
         except Error as e:
             raise PlantException(f"Ошибка добавления растения в базу данных: {e}")
@@ -48,9 +48,10 @@ class Database:
         except Error as e:
             raise PlantException(f"Ошибка чтения данных из базы данных: {e}")
         
-    def get_watering(self):
+    def get_waterings(self):
         try:
-            self.cursor.execute("SELECT * FROM waterings")
+            self.cursor.execute("SELECT last_watering_date, amount_waterings FROM plants")
             return self.cursor.fetchall()
         except Error as e:
             raise PlantException(f"Ошибка чтения данных из базы данных: {e}")
+        
